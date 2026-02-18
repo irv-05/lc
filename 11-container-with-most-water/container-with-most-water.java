@@ -3,7 +3,8 @@
 // [1,2,3,4,5,4,3,2,1]
 class Solution {
     public int maxArea(int[] height) {
-        int[] largest = new int[height.length];
+        /*int[] largest = new int[height.length];
+        
         int curTop = largest[0];
         for(int i = 1; i < largest.length; i++){
             if(curTop > height[i]) {
@@ -12,7 +13,7 @@ class Solution {
                 largest[i] = 1;
                 curTop = height[i];
             }
-        }
+        }*/
 
         int a = 0;
         int b = height.length - 1;
@@ -30,7 +31,7 @@ class Solution {
                     max = cur;
                 }
 
-                if(hi >= ha || largest[i] == 1) {
+                if(hi >= ha) {
                     leftLimit = true;
                 }
 
@@ -38,7 +39,7 @@ class Solution {
             }
 
             //advance b
-            while(a<b && ha>=height[b] && largest[b] == -1) {
+            while(a<b && ha>=height[b]) {
                 b--;
             }
 
