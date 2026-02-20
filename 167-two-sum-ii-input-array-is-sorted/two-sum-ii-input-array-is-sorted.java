@@ -13,9 +13,6 @@ class Solution {
             }
         }
 
-        int[] ret = new int[2];
-        ret[0] = a+1;
-        ret[1] = b+1;
-        return ret;
+        return new int[] {a+1,b+1};
     }
 }
