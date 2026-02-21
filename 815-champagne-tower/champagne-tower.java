@@ -1,12 +1,11 @@
 class Solution {
     public double champagneTower(int poured, int query_row, int query_glass) {
-        Double[] cur = new Double[1];
-        cur[0] = 0.0 + poured;
+        double[] cur = new double[1];
+        cur[0] = (double) poured;
         for(int i = 1; i <= query_row; i++) {
-            Double[] next = new Double[i+1];
-            next[0] = 0.0;
+            double[] next = new double[i+1];
             for(int j = 0; j < i; j++) {
-                Double curPoured = cur[j] < 1.0 ? 0.0 : (cur[j] - 1) / 2;
+                double curPoured = cur[j] < 1.0 ? 0.0 : (cur[j] - 1) / 2;
                 next[j] = next[j] + curPoured;
                 next[j+1] = curPoured;
 
