@@ -9,6 +9,10 @@ class Solution {
                 Double curPoured = cur[j] < 1.0 ? 0.0 : (cur[j] - 1) / 2;
                 next[j] = next[j] + curPoured;
                 next[j+1] = curPoured;
+
+                if(i == query_row && query_glass == j) {
+                    return Math.min(next[query_glass], 1.0);
+                }
             }
 
             cur = next;
