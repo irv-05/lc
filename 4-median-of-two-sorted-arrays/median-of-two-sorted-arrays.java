@@ -37,12 +37,10 @@ class Solution {
             bound1 = binarySearch(nums2, nums1, true);
 
         }
-        System.out.println(bound1);
         double bound2 = binarySearch(nums1, nums2, false);
         if(bound2 == Integer.MAX_VALUE) {
             bound2 = binarySearch(nums2, nums1, false);
         }
-        System.out.println(bound2);
 
         return (bound1+bound2) / 2;
     }
