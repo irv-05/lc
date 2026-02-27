@@ -1,6 +1,6 @@
 class Solution {
     public static Map<Character, Integer> map = new HashMap<>();
-    {
+    static {
         map.put('I',1);
         map.put('V',5);
         map.put('X',10);
@@ -9,7 +9,7 @@ class Solution {
         map.put('D', 500);
         map.put('M', 1000);
     }
-    
+
     public int romanToInt(String s) {
         int num = 0;
         for(int i = 0; i < s.length(); i++) {
