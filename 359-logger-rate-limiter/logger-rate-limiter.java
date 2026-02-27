@@ -1,22 +1,62 @@
 class Logger {
-    private Map<String, Integer> messageCache;
+    protected class TimeBucket {
+        private Set<String> messages;
+        private final int timestamp;
+
+        public TimeBucket(int timestamp) {
+            messages = new HashSet<>();
+            this.timestamp = timestamp;
+        }
+
+        public int getTimestamp() {
+            return timestamp;
+        }
+
+        public Set<String> getMessages() {
+            return messages;
+        } 
+
+        public void addMessage(String message) {
+            messages.add(message);
+        }
+    }
+
+    private Set<String> messageCache;
+    private Deque<TimeBucket> buckets;
+
     public Logger() {
-        messageCache = new HashMap<>();
+        messageCache = new HashSet<>();
+        buckets = new ArrayDeque<>();
     }
     
     public boolean shouldPrintMessage(int timestamp, String message) {
-        boolean shouldPrint = false;
-        if(!messageCache.containsKey(message)) {
-            shouldPrint = true;
-        } else if((timestamp) - messageCache.get(message) >= 10) {
-            shouldPrint = true;
+        cleanOldMessages(timestamp);
+
+        if(!messageCache.contains(message)) {
+            TimeBucket last = buckets.peekLast();
+            if(!buckets.isEmpty() && last.getTimestamp() == timestamp) {
+                last.addMessage(message);
+            } else {
+                TimeBucket cur = new TimeBucket(timestamp);
+                cur.addMessage(message);
+                buckets.addLast(cur);
+            }
+
+            messageCache.add(message);
+
+            return true;
         }
 
-        if(shouldPrint) {
-            messageCache.put(message, timestamp);
-        }
+        return false;
+    }
 
-        return shouldPrint;
+    private void cleanOldMessages(final int timestamp) {
+        while(!buckets.isEmpty() && timestamp - buckets.peekFirst().getTimestamp() >= 10) {
+            TimeBucket cur = buckets.pop();
+            for(String message : cur.getMessages()) {
+                messageCache.remove(message);
+            }
+        }
     }
 }
 
