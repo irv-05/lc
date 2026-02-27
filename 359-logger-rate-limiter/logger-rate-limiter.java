@@ -8,14 +8,14 @@ class Logger {
         boolean shouldPrint = false;
         if(!messageCache.containsKey(message)) {
             shouldPrint = true;
-        } else if(timestamp - messageCache.get(message) >= 10) {
+        } else if((timestamp) - messageCache.get(message) >= 10) {
             shouldPrint = true;
         }
 
         if(shouldPrint) {
             messageCache.put(message, timestamp);
         }
-        
+
         return shouldPrint;
     }
 }
