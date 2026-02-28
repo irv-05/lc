@@ -1,13 +1,11 @@
 class Solution {
     public int lengthLongestPath(String input) {
-        Deque<String> stack = new ArrayDeque<>();
-
+        Deque<Integer> stack = new ArrayDeque<>();
         int maxPath = 0;
         int level = -1;
         input = input + '\n';
         StringBuilder curName = new StringBuilder();
         int curLength = 0;
-        StringBuilder curPath = new StringBuilder();
         int curLevel = 0;
         for(int i = 0; i < input.length(); i++) {
             if('\t' == input.charAt(i)) {
@@ -17,8 +15,8 @@ class Solution {
                     int toPop = level - curLevel;
 
                     for(int j = 0; j < toPop; j++) {
-                        String dir = stack.pop();
-                        curLength -= dir.length();
+                        int dir = stack.pop();
+                        curLength -= dir;
                     }
                 } 
 
@@ -28,9 +26,8 @@ class Solution {
                     }
                     level = curLevel;
                 } else {
-                    curName.append("/");
-                    stack.push(curName.toString());
-                    curLength += curName.length();
+                    stack.push(curName.length() + 1);
+                    curLength += curName.length() + 1;
                     level = curLevel+1;     
                 }
                 
