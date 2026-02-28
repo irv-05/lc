@@ -3,14 +3,11 @@ class Solution {
         Deque<Integer> stack = new ArrayDeque<>();
         int maxPath = 0;
         int level = -1;
-        input = input + '\n';
         StringBuilder curName = new StringBuilder();
         int curLength = 0;
         int curLevel = 0;
-        for(int i = 0; i < input.length(); i++) {
-            if('\t' == input.charAt(i)) {
-                curLevel++;
-            } else if('\n' == input.charAt(i)) {
+        for(int i = 0; i < input.length()+1; i++) {
+            if(i == input.length() || '\n' == input.charAt(i)) {
                 if(curLevel < level) {
                     int toPop = level - curLevel;
 
@@ -33,6 +30,8 @@ class Solution {
                 
                 curLevel = 0;
                 curName = new StringBuilder();
+            } else if('\t' == input.charAt(i)) {
+                curLevel++;
             } else {
                 curName.append(input.charAt(i));
             }
