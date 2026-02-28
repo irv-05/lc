@@ -22,8 +22,6 @@ class Solution {
                             curPath.deleteCharAt(curPath.length() - 1);
                         }
                     }
-
-                    System.out.println(curPath);
                 } 
 
                 if(curName.toString().contains(".")) {
@@ -43,8 +41,6 @@ class Solution {
                 curName.append(input.charAt(i));
             }
         }
-
-        System.out.println(maxPath);
         return maxPath.length();
     }
 }
