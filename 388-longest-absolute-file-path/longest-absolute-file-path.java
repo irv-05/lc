@@ -4,7 +4,7 @@ class Solution {
         int maxPath = 0;
         int level = -1;
 
-        StringBuilder curName = new StringBuilder();
+        int curName = 0;
         int curLength = 0;
         int curLevel = 0;
         boolean isFile = false;
@@ -20,18 +20,18 @@ class Solution {
                 } 
 
                 if(isFile) {
-                    if(curLength + curName.length() > maxPath) {
-                        maxPath = curLength + curName.length();
+                    if(curLength + curName > maxPath) {
+                        maxPath = curLength + curName;
                     }
                     level = curLevel;
                 } else {
-                    stack.push(curName.length() + 1);
-                    curLength += curName.length() + 1;
+                    stack.push(curName+1);
+                    curLength += curName+1;
                     level = curLevel+1;     
                 }
                 
                 curLevel = 0;
-                curName = new StringBuilder();
+                curName = 0;
                 isFile = false;
             } else if('\t' == input.charAt(i)) {
                 curLevel++;
@@ -39,7 +39,7 @@ class Solution {
                 if(input.charAt(i) == '.') {
                     isFile = true;
                 }
-                curName.append(input.charAt(i));
+                curName++;
             }
         }
         return maxPath;
