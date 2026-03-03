@@ -3,14 +3,6 @@ class Solution {
     public int trap(int[] height) {
         int a = 0;
         int b = height.length-1;
-        while(a < b && height[a] == 0) {
-            a++;
-        }
-
-        while(a < b && height[b] == 0) {
-            b--;
-        }
-
         if(a >= b) {
             return 0;
         }
