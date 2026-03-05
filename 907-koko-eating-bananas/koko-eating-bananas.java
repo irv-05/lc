@@ -21,8 +21,8 @@ class Solution {
         int low = 0;
         int mid = (high + low) / 2;
         while(low != high-1) {
-            curTime = findTime(piles, mid);
-            if(curTime > h) {
+            boolean onTime = isOnTime(piles, mid, h);
+            if(!onTime) {
                 low = mid;
                 mid = (high + low) / 2;
 
@@ -39,12 +39,16 @@ class Solution {
         return bestK;
     }
 
-    private long findTime(int[] piles, int k) {
+    private boolean isOnTime(int[] piles, int k, int h) {
         long time = 0;
         for(int pile : piles) {
             double val = Math.ceil((double) pile / (double) k);
             time += (long) val;
+            if(time > h) {
+                return false;
+            }
         }
-        return time;
+
+        return true;
     }
 }
