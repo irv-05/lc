@@ -12,10 +12,9 @@ class Solution {
         }
 
         long curTime = piles.length;
-        int bestK = high;
         //if h == piles.length, then lets just return the value
         if(h == curTime) {
-            return bestK;
+            return high;
         }
 
         int low = 0;
@@ -35,8 +34,8 @@ class Solution {
     private boolean isOnTime(int[] piles, int k, int h) {
         long time = 0;
         for(int pile : piles) {
-            double val = Math.ceil((double) pile / (double) k);
-            time += (long) val;
+            double val = Math.ceil((double) pile / k);
+            time += val;
             if(time > h) {
                 return false;
             }
