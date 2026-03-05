@@ -19,24 +19,17 @@ class Solution {
         }
 
         int low = 0;
-        int mid = (high + low) / 2;
         while(low != high-1) {
+            int mid = (high + low) / 2;
             boolean onTime = isOnTime(piles, mid, h);
             if(!onTime) {
                 low = mid;
-                mid = (high + low) / 2;
-
             } else {
-                if(mid < bestK) {
-                    bestK = mid;
-                }
-
                 high = mid;
-                mid = (high + low) / 2;
             }
         }
 
-        return bestK;
+        return high;
     }
 
     private boolean isOnTime(int[] piles, int k, int h) {
