@@ -107,8 +107,6 @@ class Solution {
                 ret.add(sb.toString());
             }
         }
-
-        System.out.print(ret.size());
         return ret;
     }
 }
