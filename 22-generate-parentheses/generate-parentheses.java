@@ -1,6 +1,6 @@
 // 1 -> ()
 // 2 -> ()(), (()), 
-// 3 -> (()()), ()()(), (())(), ()(()), ((())) -> (()(()))
+// 3 -> (()()), ()()(), (())(), ()(()), ((()))  :  (())(()) : ()(
 // if we compute all of the legal parenthesis for i-1, then we can insert one more '(' and one more ')' into these legal parenthesis to form a solution of i. 
 // if we find all legal insertions on the set of these, then at each step we are adding only one parenthesis. 
 
@@ -11,101 +11,40 @@
 // the same concept applies to adding '(' somewhere in the middle. 
 class Solution {
     public List<String> generateParenthesis(int n) {
-        Set<LinkedList<Character>> valid = new HashSet<>();
+        HashMap<LinkedList<Character>, Integer> valid = new HashMap<>();
 
         //base case
         LinkedList<Character> base = new LinkedList<>();
         base.addLast('(');
-        base.addLast(')');
-        valid.add(base);
+        valid.put(base, 1);
 
-        //illegal base case
-        base = new LinkedList<>();
-        base.addLast(')');
-        base.addLast('(');
-        valid.add(base);
+        int length = n*2; 
+        for(int i = 1; i < length; i++) {
+            HashMap<LinkedList<Character>, Integer> cur = new HashMap<>();
+            for(LinkedList old : valid.keySet()) {
+                LinkedList<Character> perm = new LinkedList(old);
+                if(valid.get(old) > 0) {
+                    perm.addLast(')');
+                    cur.put(perm, valid.get(old) - 1);
+                    perm = new LinkedList(old);
+                }
 
-        base = new LinkedList<>();
-        base.addLast(')');
-        base.addLast(')');
-        valid.add(base);
-
-        base = new LinkedList<>();
-        base.addLast('(');
-        base.addLast('(');
-        valid.add(base);
-
-
-        for(int i = 1; i < n; i++) {
-            Set<LinkedList<Character>> cur = new HashSet<>();
-            for(LinkedList old : valid) {
-                LinkedList perm = new LinkedList(old);
-                perm.addLast('(');
-                perm.addLast(')');
-                cur.add(perm);                
-                
-                perm = new LinkedList(old);
-                perm.addFirst(')');
-                perm.addFirst('(');
-                cur.add(perm);
-                
-                perm = new LinkedList(old);
-                perm.addFirst('(');
-                perm.addLast(')');
-                cur.add(perm);
-
-                //also add illegal perms
-                perm = new LinkedList(old);
-                perm.addFirst('(');
-                perm.addFirst(')');
-                cur.add(perm);
-                
-                perm = new LinkedList(old);
-                perm.addLast(')');
-                perm.addLast('(');
-                cur.add(perm);
-
-                perm = new LinkedList(old);
-                perm.addFirst(')');
-                perm.addLast('(');
-                cur.add(perm);
-
-                perm = new LinkedList(old);
-                perm.addFirst(')');
-                perm.addFirst(')');
-                cur.add(perm);
-
-                perm = new LinkedList(old);
-                perm.addLast('(');
-                perm.addLast('(');
-                cur.add(perm);
+                if(valid.get(old) < (length - i)) {
+                    perm.addLast('(');
+                    cur.put(perm, valid.get(old) + 1);
+                }   
             }
 
             valid = cur;
         }
 
         List<String> ret = new ArrayList<>();
-        for(LinkedList<Character> cur : valid) {
-            boolean validString = true;
-            int balance = 0;
+        for(LinkedList<Character> cur : valid.keySet()) {
             StringBuilder sb = new StringBuilder();
             for(Character c : cur) {
-                if(c == ')') {
-                    balance--;
-                } else {
-                    balance++;
-                }
-
-                if(balance < 0) {
-                    validString = false;
-                    break;
-                }
                 sb.append(c);
             }
-
-            if(validString && balance == 0) {
-                ret.add(sb.toString());
-            }
+            ret.add(sb.toString());       
         }
         return ret;
     }
