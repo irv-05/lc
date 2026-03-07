@@ -12,15 +12,16 @@ class Solution {
             HashMap<StringBuilder, Integer> cur = new HashMap<>();
             for(StringBuilder old : valid.keySet()) {
                 StringBuilder perm = new StringBuilder(old);
-                if(valid.get(old) > 0) {
+                int balance = valid.get(old);
+                if(balance > 0) {
                     perm.append(')');
-                    cur.put(perm, valid.get(old) - 1);
+                    cur.put(perm, balance - 1);
                     perm = new StringBuilder(old);
                 }
 
-                if(valid.get(old) < (length - i)) {
+                if(balance < (length - i)) {
                     perm.append('(');
-                    cur.put(perm, valid.get(old) + 1);
+                    cur.put(perm, balance + 1);
                 }   
             }
 
