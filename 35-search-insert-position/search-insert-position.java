@@ -11,7 +11,7 @@ class Solution {
             } else if(nums[mid] < target) {
                 a = mid + 1;
             } else {
-                b = mid - 1;
+                b = mid;
             }
         }
 
