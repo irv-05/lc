@@ -11,7 +11,6 @@ class Solution {
             } else if ((x/mid) < mid) {
                 b = mid - 1;
             } else {
-                minInt = mid;
                 a = mid + 1;
             }
         }
