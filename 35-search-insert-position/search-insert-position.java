@@ -4,12 +4,12 @@ class Solution {
         int b = nums.length-1;
         while(a < b) {
             //prevent overflow
-            int mid = a + ((b - a) / 2) + 1;
+            int mid = a + ((b - a) / 2);
 
             if(nums[mid] == target) {
                 return mid;
             } else if(nums[mid] < target) {
-                a = mid;
+                a = mid + 1;
             } else {
                 b = mid - 1;
             }
