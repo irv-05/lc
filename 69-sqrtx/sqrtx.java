@@ -16,7 +16,7 @@ class Solution {
             }
         }
 
-        return minInt;
+        return b;
         
     }
 }
