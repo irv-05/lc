@@ -26,14 +26,13 @@ class Solution {
             cur = cur.left;
             level++;
         }
-        int val = (int)Math.pow(2,level);
-        int max = val - 1 + (int) Math.pow(2, level);
-        int min = val;
+
+        int min = (int)Math.pow(2,level);
+        int max = (int) Math.pow(2, level+1) - 1;
+
 
         int a = min;
         int b = max;
-
-
         while(a <= b) {
             int mid = a + (b-a) / 2;
             boolean found = findNode(min, max, root, mid);
@@ -52,17 +51,14 @@ class Solution {
         TreeNode cur = root;
         int a = min;
         int b = max;
-        int val = 1;
-        while(cur != null && val != num) {
+        while(a<b) {
             int mid = a + (b-a) / 2;
             if(num > mid) {
                 cur = cur.right;
                 a = mid + 1;
-                val = 1 + (val*2);
             } else {
                 cur = cur.left;
-                b = mid - 1;
-                val = val*2;
+                b = mid;
             }
         }
 
