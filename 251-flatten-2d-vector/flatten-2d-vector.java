@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 class Vector2D {
     private Iterator<int[]> vec;
     private Iterator<Integer> it;
@@ -8,6 +10,10 @@ class Vector2D {
     }
     
     public int next() {
+        if(!it.hasNext()) {
+            throw new NoSuchElementException();
+        }
+
         int cur = it.next();
         findNextValid();
 
