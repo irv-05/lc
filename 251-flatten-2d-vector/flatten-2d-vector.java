@@ -1,31 +1,29 @@
 class Vector2D {
-    private int x;
-    private int y;
-    private int[][] vec;
+    private Iterator<int[]> vec;
+    private Iterator<Integer> it;
 
     public Vector2D(int[][] vec) {
-        this.x = 0;
-        this.y = 0;
-        this.vec = vec;  
-
+        this.vec = Arrays.stream(vec).iterator();
         findNextValid();  
     }
     
     public int next() {
-        int cur = vec[y][x];
-        x++;
+        int cur = it.next();
         findNextValid();
+
         return cur;
     }
     
     public boolean hasNext() {
-        return vec.length > y && vec[y].length > x;
+        return it != null && (vec.hasNext() || it.hasNext());
     }
 
     private void findNextValid() {
-        while (vec.length > y && vec[y].length == x) {
-            x = 0;
-            y++;
+        while(vec.hasNext() && (it == null || !it.hasNext())) {
+            int[] cur = vec.next();
+            if(cur.length != 0) {
+                it = Arrays.stream(cur).iterator();
+            }
         }
     }
 }
