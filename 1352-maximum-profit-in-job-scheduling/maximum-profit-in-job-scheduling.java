@@ -8,7 +8,6 @@ class Solution {
             this.start = start;
             this.end = end;
             this.val = val;
-            this.overlap = 0;
         }
 
         @Override
@@ -35,14 +34,10 @@ class Solution {
 
             int curProfit;
             if(overlap < startTime.length) {
-                //System.out.println("size" + size);
-                //System.out.println(j);
-                //System.out.println(overlap);
                 curProfit = Math.max(jobs[i].val + memo[overlap], memo[i+1]);
             } else {
                 curProfit = Math.max(jobs[i].val,  memo[i+1]);
             }
-            //System.out.println(curProfit);
             memo[i] = curProfit;
             
         }
