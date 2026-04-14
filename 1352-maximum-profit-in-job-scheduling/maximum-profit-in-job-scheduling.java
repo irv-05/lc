@@ -25,22 +25,13 @@ class Solution {
         }
         Arrays.sort(jobs);
 
-        for(int i = 0; i < startTime.length; i++) {
+        int[] memo = new int[startTime.length];
+        memo[startTime.length-1] = jobs[startTime.length-1].val;
+        for(int i = startTime.length-2; i >= 0; i--) {    
             int overlap = i + 1;
             while(overlap < startTime.length && jobs[i].end > jobs[overlap].start) {
                 overlap++;
             }
-
-            jobs[i].overlap = overlap;
-        }
-        
-
-
-        int[] memo = new int[startTime.length];
-        memo[startTime.length-1] = jobs[startTime.length-1].val;
-        for(int i = startTime.length-2; i >= 0; i--) {
-            int size = i + 1;
-            int overlap = jobs[i].overlap;
 
             int curProfit;
             if(overlap < startTime.length) {
