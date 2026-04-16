@@ -1,6 +1,6 @@
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        Map<Integer, List<String>> dict = new HashMap<>();
+        Map<String, List<String>> dict = new HashMap<>();
 
         for(String s : strs) {
             int[] curWord = new int[26];
@@ -8,12 +8,20 @@ class Solution {
                 curWord[s.charAt(i)-'a']++;
             }
 
-            if(dict.containsKey(java.util.Arrays.hashCode(curWord))) {
-                dict.get(java.util.Arrays.hashCode(curWord)).add(s);
+            StringBuilder sb = new StringBuilder();
+            for(int val : curWord) {
+                sb.append('-');
+                sb.append(val);
+            }
+
+            String wordCount = sb.toString();
+
+            if(dict.containsKey(wordCount)) {
+                dict.get(wordCount).add(s);
             } else {
                 List<String> curList = new ArrayList<>();
                 curList.add(s);
-                dict.put(java.util.Arrays.hashCode(curWord), curList);
+                dict.put(wordCount, curList);
             }
         }
         
