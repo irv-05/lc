@@ -21,7 +21,7 @@ class Solution {
                 int target = 0 - (first + second);
                 if(seen.contains(target)) {
                     retList.add(makeTriplet(first, second, target));
-                    //seen.remove(target);
+                    seen.remove(target);
                     used.add(target);
                     used.add(second);
                 } else {
